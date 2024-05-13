@@ -96,7 +96,6 @@
                             <div class="modal-content">
                               <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">{{i.name}} Учун Тулов  :  {{i.summa}} : Cym </h1>
-                                <h1 class="modal-title fs-4" ></h1>
                               </div>
                               <select class="form-select" aria-label="Default select example" name="month" >
                                 <option value="0" >Шу Ой Учун  Ту'лов</option>
@@ -127,12 +126,66 @@
                       <tr>
                         <th scope="row">{{forloop.counter}}</th>
                         <td> <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal{{i.id}}">{{i.name}} </a> </td>
-                        <td>{{i.summa}}</td>
+
+
+                        <div class="modal fade" id="exampleModalSummaUpdate{{i.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                              </div>
+                              <form action="/update/customer/summa/{{i.id}}" method="post">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                  <div class="input-group flex-nowrap">
+                                   <h1>{{c.customer}}</h1>
+                                  </div>
+                                  <div class="input-group flex-nowrap">
+                                   <h1 class="modal-title fs-5" >{{i.name}} Взносни У'згартриш </h1>
+                                  </div>
+                                  <div class="input-group flex-nowrap">
+                                    <input type="number" class="form-control" placeholder="Сумма" required name="sum" aria-describedby="addon-wrapping">
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Бекор</button>
+                                  <button type="submit" class="btn btn-primary">Сак,лаш</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <td> <a href="" data-bs-toggle="modal" data-bs-target="#exampleModalSummaUpdate{{i.id}}"> {{i.summa}} </a></td>
+
+
                         {% for c in payment %}
+                            <div class="modal fade" id="exampleModal_payment{{c.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                  </div>
+                                  <form action="/update/payment/{{c.id}}" method="post">
+                                    {% csrf_token %}
+                                    <div class="modal-body">
+                                      <div class="input-group flex-nowrap">
+                                       <h1 class="modal-title fs-5" >{{c.customer}} Берга суммани У'згартриш </h1>
+                                      </div>
+                                      <div class="input-group flex-nowrap">
+                                        <input type="number" class="form-control" placeholder="Сумма" required name="sum" aria-describedby="addon-wrapping">
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Бекор</button>
+                                      <button type="submit" class="btn btn-primary">Сак,лаш</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
                         {% if c.customer == i %}
-                           <td> {{ c.summa }}</td>
-                           {% else  %}
-                           <td>0</td>
+                           <td> <a href=""  data-bs-toggle="modal" data-bs-target="#exampleModal_payment{{c.id}}">{{ c.summa }}</a> </td>
+
                         {% endif %}
                       {% endfor %}
                       </tr>

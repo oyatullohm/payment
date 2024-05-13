@@ -51,6 +51,22 @@ class MonthDetailView(View):
         return render (request ,'detail_month.html',context)
 
 
+class UpdatePaymentView(View):
+    def post(self,request,pk):
+        py = Payment.objects.get(id=int(pk))
+        sum = request.POST.get('sum')
+        py.summa = sum
+        py.save()
+        return redirect('main:home')
+
+class UpdateCustomerSummaView(View):
+    def post(self,request,pk):
+        customer = Customer.objects.get(id=int(pk))
+        sum = request.POST.get('sum')
+        customer.summa = sum
+        customer.save()
+        return redirect('main:home')
+
 def refresh(request):
     customer = Customer.objects.all()
     for i in customer:
